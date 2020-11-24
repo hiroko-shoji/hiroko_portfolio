@@ -79,6 +79,14 @@
 
         $SchoolObj->replace_lesson($lessonPk,$lessonId,$lessonDate,$lessonDay,$startTime,$endTime,$coachId,$level,$mId);
 
+    // }
+    }elseif(isset($_POST['buy_ticket'])){
+        $ticketQty = $_POST['ticketQty'];
+        $mId = $_POST['mId'];
+
+        $SchoolObj->buy_ticket($ticketQty,$mId);
+    }
+
 
     // }elseif(isset($_POST['search'])){
 
@@ -89,5 +97,5 @@
 
         //     $SchoolObj->search_lesson($sLevel,$sCoach);
         // }
-    }
+
 ?>

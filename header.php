@@ -26,8 +26,8 @@ include 'Action.php';
             </div>
             <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarNav">
                 <ul class="navbar-nav ">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">SHOPPING</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="shopping.php">SHOPPING</a>
                     </li>
 
                 <?php

@@ -96,6 +96,7 @@
 
                             $sLevel = $_POST['selectLevel'];
                             $sCoach = $_POST['selectCoach'];
+                            // $sTicket = $_POST['selectTicket']
 
                             $SchoolObj->search_lesson($sLevel,$sCoach);
 
@@ -110,7 +111,7 @@
                                 <td><?php echo $row['date']; ?></td>
                                 <td><?php echo $row['day']; ?></td>
                                 <td><?php echo $row['start_time']; ?></td>
-                                <td><?php echo $row['coach_id']; ?></td>
+                                <td><?php echo $row['coach_name']; ?></td>
                                 <td><?php echo $row['level_id']; ?></td>
                                 <td><a class="" a href="reserveLesson.php?lesson_pk=<?php echo $row['lesson_pk']; ?>">Reserve</a></td>
                             </tr>
@@ -134,7 +135,7 @@
     </div>
 
 
-
 <?php
+    // include_once 'sidebar2.php';
     include_once 'footer.php';
 ?>

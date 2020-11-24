@@ -1,6 +1,8 @@
 <?php
     include_once 'header.php';
     include_once 'sidebar.php';
+
+
 ?>
 
 
@@ -16,6 +18,22 @@
 
             <div class="jumbotron my-5">
 
+                Remaining number of lessons:
+                <br>
+
+            <?php
+                if(!empty($_SESSION['member_id'])){
+                    $mId = $_SESSION['member_id'];
+
+                    $SchoolObj->ticket_num($mId);
+
+                    $count = $SchoolObj->ticket_num($mId);
+
+                    echo $count;
+
+
+                }
+            ?>
 
             </div>
 
@@ -28,5 +46,6 @@
 
 
 <?php
+    // include_once 'sidebar2.php';
     include_once 'footer.php';
 ?>

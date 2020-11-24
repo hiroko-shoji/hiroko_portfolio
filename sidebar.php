@@ -33,9 +33,10 @@ if(isset($_SESSION['member_id'])){
                 <br>
                 <!-- Sidebar for Admin -->
                 <a href="adminRegister.php" class="text-decoration-none">Register New Member</a><br>
+                <a href="adminCoach.php" class="text-decoration-none">Register New Coach</a><br>
+                <a href="adminAllMembers.php" class="text-decoration-none">Manage Members</a><br>
                 <a href="adminLesson.php" class="text-decoration-none">Manage Regular Lessons</a><br>
                 <a href="adminEvent.php" class="text-decoration-none">Manage Events</a><br>
-                <a href="adminCoach.php" class="text-decoration-none">Register New Coach</a><br>
             </div>
 
         </div>

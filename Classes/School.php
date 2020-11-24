@@ -147,7 +147,7 @@ include 'Database.php';
         }
 
         public function display_mId_lesson($mId){
-            $sql = "SELECT * FROM reserved_lessons WHERE members_id = '$mId'";
+            $sql = "SELECT * FROM reserved_lessons INNER JOIN coaches ON reserved_lessons.coach_id = coaches.coach_id WHERE reserved_lessons.members_id = '$mId'";
             $result = $this->conn->query($sql);
 
             if($result->num_rows>0){
@@ -217,9 +217,37 @@ include 'Database.php';
             }
         }
 
+        public function buy_ticket($ticketQty,$mId){
 
+            for ($count =0; $count < $ticketQty; $count++){
+                $sql = "INSERT INTO tickets(members_id,exp_date,type) VALUES('$mId','2020/12/31','Open Ticket')";
+                $result = $this->conn->query($sql);
 
+                if($result == TRUE){
+                    header('location:thankyou.php');
 
+                }else{
+                    header('location:shoppingResultFalse.php');
+                }
+
+            }
+        }
+
+        // $sql = "INSERT INTO tickets(members_id,date,day,exp_date,type) VALUES('$mId',date('Y-m-d'),'date('w')','2020/12/31','Open Ticket')";
+
+        // public function ticket_num($mId){
+        //     $sql = "SELECT COUNT(*) FROM tickets WHERE members_id = '$mId'";
+        //     $result = $this->conn->query($sql);
+
+        //     if($result == TRUE){
+        //         $count = $result->fetch();
+        //         return $count;
+
+        //     }else{
+        //         echo "iiiii";
+        //     }
+
+        // }
 }
 
 ?>

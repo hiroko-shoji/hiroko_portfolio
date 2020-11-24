@@ -53,7 +53,7 @@
                                         <td><?php echo $row['date'];?></td>
                                         <td><?php echo $row['start_time'];?></td>
                                         <td><?php echo $row['level_id'];?></td>
-                                        <td><?php echo $row['coach_id'];?></td>
+                                        <td><?php echo $row['coach_name'];?></td>
                                         <td></td>
                                         <td></td>
                                     </tr>
