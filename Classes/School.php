@@ -20,14 +20,23 @@ include 'Database.php';
 
             if($result->num_rows==1){
                 $row = $result->fetch_assoc();
-                $_SESSION['member_id'] = $row['members_id'];
-                $_SESSION['member_name'] = $row['members_name'];
-                $_SESSION['member_level'] = $row['level_id'];
+                $pwdhashed = $row['password'];
+                $checkPwd = password_verify($pwd, $pwdhashed);
 
-                header('location:welcome.php');
+                if($checkPwd == TRUE){
+                    $_SESSION['member_id'] = $row['members_id'];
+                    $_SESSION['member_name'] = $row['members_name'];
+                    $_SESSION['member_level'] = $row['level_id'];
+
+                    header('location:welcome.php');
+
+                }else{
+
+                    header('location:login.php?login=fail');
+                }
 
             }else{
-                header('location:login.php?login=fail');
+                echo "Please contact school.";
             }
 
         }
@@ -130,18 +139,23 @@ include 'Database.php';
         }
 
 
-        public function reserve_lesson($lessonPk,$lessonId,$lessonDate,$lessonDay,$startTime,$endTime,$coachId,$level,$mId){
+        public function reserve_lesson($lessonPk,$lessonId,$lessonDate,$lessonDay,$startTime,$endTime,$coachId,$level,$mId,$uTicket){
             $sql = "INSERT INTO reserved_lessons(lesson_pk,lesson_id,date,day,start_time,end_time,coach_id,level_id,members_id) VALUES('$lessonPk','$lessonId','$lessonDate','$lessonDay','$startTime','$endTime','$coachId','$level','$mId')";
             $result = $this->conn->query($sql);
 
             if($result == TRUE){
-                $sql = "DELETE FROM lessons WHERE lesson_pk = $lessonPk";
+                $sql = "DELETE FROM lessons WHERE lesson_pk = '$lessonPk'";
                 $result = $this->conn->query($sql);
 
                 if($result == TRUE){
-                    header('location:reserveResult.php');
-                }else{
-                    header('location:reserveResultFalse.php');
+                    $sql = "DELETE FROM tickets WHERE ticket_id = '$uTicket'";
+                    $result = $this->conn->query($sql);
+
+                    if($result == TRUE){
+                        header('location:reserveResult.php');
+                    }else{
+                        header('location:reserveResultFalse.php');
+                    }
                 }
             }
         }
@@ -166,7 +180,7 @@ include 'Database.php';
             $result = $this->conn->query($sql);
 
             if($result == TRUE){
-                $sql = "DELETE FROM reserved_lessons WHERE lesson_pk = $lessonPk";
+                $sql = "DELETE FROM reserved_lessons WHERE lesson_pk = '$lessonPk'";
                 $result = $this->conn->query($sql);
 
                 if($result == TRUE){
@@ -200,7 +214,7 @@ include 'Database.php';
             $result = $this->conn->query($sql);
 
             if($result == TRUE){
-                $sql = "DELETE FROM reserved_lessons WHERE lesson_pk = $lessonPk";
+                $sql = "DELETE FROM reserved_lessons WHERE lesson_pk = '$lessonPk'";
                 $result = $this->conn->query($sql);
 
                 if($result == TRUE){
@@ -216,6 +230,35 @@ include 'Database.php';
                 }
             }
         }
+
+        public function available_product(){
+            $sql = "SELECT * FROM products WHERE available != 0";
+            $result = $this->conn->query($sql);
+
+            if($result->num_rows>0){
+                $productsArray = array();
+                while($database_row = $result->fetch_assoc()){
+                    $productsArray[] = $database_row;
+                }
+                return $productsArray;
+            }else{
+                return FALSE;
+            }
+        }
+
+        public function get_one_product($productId){
+            $sql = "SELECT * FROM products WHERE product_id = '$productId'";
+            $result = $this->conn->query($sql);
+
+            if($result == TRUE){
+                return $result->fetch_assoc();
+            }else{
+                return FALSE;
+            }
+
+        }
+
+
 
         public function buy_ticket($ticketQty,$mId){
 
@@ -235,19 +278,82 @@ include 'Database.php';
 
         // $sql = "INSERT INTO tickets(members_id,date,day,exp_date,type) VALUES('$mId',date('Y-m-d'),'date('w')','2020/12/31','Open Ticket')";
 
-        // public function ticket_num($mId){
-        //     $sql = "SELECT COUNT(*) FROM tickets WHERE members_id = '$mId'";
-        //     $result = $this->conn->query($sql);
+        public function ticket_num($mId){
+            $sql = "SELECT COUNT(*) as cnt FROM tickets WHERE members_id = '$mId'";
+            $result = $this->conn->query($sql);
 
-        //     if($result == TRUE){
-        //         $count = $result->fetch();
-        //         return $count;
+            if($result == TRUE){
+                $row = $result->fetch_assoc();
+                print $row['cnt'];
 
-        //     }else{
-        //         echo "iiiii";
-        //     }
+            }else{
+                echo "iiiii";
+            }
 
-        // }
+        }
+
+        public function all_news(){
+            $sql = "SELECT * FROM news";
+            $result = $this->conn->query($sql);
+
+            if($result->num_rows>0){
+                $newsArray = array();
+                while($database_row = $result->fetch_assoc()){
+                    $newsArray[] = $database_row;
+                }
+                return $newsArray;
+            }else{
+                return FALSE;
+            }
+        }
+
+        public function add_news($newsTitle,$newsMain){
+            $sql = "INSERT INTO news(news_title,news_main) VALUES('$newsTitle','$newsMain')";
+            $result = $this->conn->query($sql);
+
+            if($result == TRUE){
+                header('location:adminNews.php');
+            }else{
+                return FALSE;
+            }
+        }
+
+        public function get_one_news($newsId){
+            $sql = "SELECT * FROM news WHERE news_id = '$newsId'";
+            $result = $this->conn->query($sql);
+
+            if($result == TRUE){
+                return $result->fetch_assoc();
+            }else{
+                return FALSE;
+            }
+        }
+
+        public function update_news($newsId,$newsTitle,$newsMain){
+            $sql = "UPDATE news SET news_title='$newsTitle',news_main='$newsMain' WHERE news_id='$newsId'";
+            $result = $this->conn->query($sql);
+
+            if($result == TRUE){
+                header('location:adminNews.php');
+            }else{
+                return FALSE;
+            }
+        }
+
+        public function delete_news($newsId,$newsTitle,$newsMain){
+            $sql = "DELETE FROM news WHERE news_id='$newsId'";
+            $result = $this->conn->query($sql);
+
+            if($result == TRUE){
+                header('location:adminNewsDeleteResult.php');
+            }else{
+                return FALSE;
+            }
+        }
+
+
+
+
 }
 
 ?>

@@ -13,18 +13,57 @@
 
 ?>
 
-    <div class="col my-5">
 
-        <div class="container">
+    <div class="container my-5">
+    <!-- Middle container -->
+
+    <div class="row">
+
+        <div class="col-12">
+
+        <h4>Select Booking Date</h4>
+
+
+            <div class="alert alert-secondary" role="alert">
+                Remaining number of lessons: 
+
+                <strong>
+
+
+                    <?php
+                if(!empty($_SESSION['member_id'])){
+                    $mId = $_SESSION['member_id'];
+
+                    $count = $SchoolObj->ticket_num($mId);
+
+                    echo $count;
+
+
+                }
+                ?>
+
+                </strong>
+            </div>
+
+        </div>
+        <!-- end of col-12 -->
+
+    </div>
+    <!-- end of row -->
+
+
+
             <div class="row">
+            <!-- row for form area -->
 
                 <div class="col-12">
-                    Select Booking Date
 
                     <form action="" method="POST">
+
+                        <!-- form- select ticket -->
                         <div class="form-group">
-                            <label for="">Please select your Ticket.</label>
-                            <select class="form-control" name="selectTicket" id="">
+                            <label for="" class="col-sm-5 col-form-label">Please select your Ticket.</label>
+                            <select class="form-control-sm" name="selectTicket" id="">
 
                                 <?php
 
@@ -40,9 +79,11 @@
 
                             </select>
                         </div>
+
+                        <!-- form- select level -->
                         <div class="form-group">
-                            <label for="">Please select your level.</label>
-                            <select class="form-control" name="selectLevel" id="" required>
+                            <label for="" class="col-sm-5 col-form-label">Please select your level.</label>
+                            <select class="form-control-sm" name="selectLevel" id="" required>
                                 <option value="">-Select-</option>
                                 <option value="level1">Beginner</option>
                                 <option value="level2">Intermediate</option>
@@ -50,9 +91,11 @@
                                 <option value="level4">Expert</option>
                             </select>
                         </div>
+
+                        <!-- form- select coach -->
                         <div class="form-group">
-                            <label for="">Please select your coach.</label>
-                            <select class="form-control" name="selectCoach" id="" required>
+                            <label for="" class="col-sm-5 col-form-label">Please select your coach.</label>
+                            <select class="form-control-sm" name="selectCoach" id="" required>
 
                                 <?php
                                     $database_row = $SchoolObj->display_all_coach();
@@ -67,13 +110,23 @@
 
                             </select>
                         </div>
-                        <button type="submit" name="search" class="btn btn-outline-dark">SEARCH</button>
-                    </form>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-12">
+                        <div class="form-group">
+                            <label for="" class="col-sm-5 col-form-label"></label>
+                            <button type="submit" name="search" class="btn btn-outline-dark">SEARCH</button>
+                        </div>
+
+                    </form>
+
+                </div>
+                <!-- end of col-12 -->
+
+
+            </div>
+            <!-- end of row for form area -->
+
+            <div class="row mt-3">
+            <!-- row for result table -->
 
                     <table class="table table-sm">
                         <thead>
@@ -96,7 +149,8 @@
 
                             $sLevel = $_POST['selectLevel'];
                             $sCoach = $_POST['selectCoach'];
-                            // $sTicket = $_POST['selectTicket']
+                            $sTicket = $_POST['selectTicket'];
+
 
                             $SchoolObj->search_lesson($sLevel,$sCoach);
 
@@ -113,10 +167,14 @@
                                 <td><?php echo $row['start_time']; ?></td>
                                 <td><?php echo $row['coach_name']; ?></td>
                                 <td><?php echo $row['level_id']; ?></td>
-                                <td><a class="" a href="reserveLesson.php?lesson_pk=<?php echo $row['lesson_pk']; ?>">Reserve</a></td>
+                                <td><a class="" a href="reserveLesson.php?lesson_pk=<?php echo $row['lesson_pk']?>&useTicket=<?php echo $sTicket; ?>">Reserve</a></td>
                             </tr>
-                        <?php
+
+                            <?php
                             }
+                            ?>
+
+                        <?php
                         }else{
                             echo "No result found.";
                         }
@@ -128,11 +186,61 @@
                     }
                     ?>
 
-                </div>
             </div>
+            <!-- end of row for result table -->
+
+    </div>
+    <!-- end of middle container -->
+
+</div>
+<!-- end of col-7 -->
+
+<!-- not used this time -->
+        <div class="col-3">
+        <!-- right -->
+
+            <div class="container">
+            <!-- test -->
+
+                <div class="row">
+                <!-- test -->
+
+                    <!-- <div class="jumbotron my-5"> -->
+
+
+                        <!-- Remaining number of lessons: -->
+                        <!-- <br> -->
+
+                        <?php
+                        // if(!empty($_SESSION['member_id'])){
+                            // $mId = $_SESSION['member_id'];
+
+                            // $count = $SchoolObj->ticket_num($mId);
+
+                            // echo $count;
+
+
+                        // }
+                        ?>
+
+                    <!-- </div> -->
+                    <!-- end of jumbotron -->
+
+                </div>
+                <!-- end of test row -->
+
+            </div>
+            <!-- end of test container -->
 
         </div>
+        <!-- end of col-3 -->
+
     </div>
+    <!-- end of ROW -->
+
+</div>
+<!-- end of CONTAINER -->
+
 
 
 <?php

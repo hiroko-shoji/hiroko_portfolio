@@ -14,13 +14,11 @@ if(!empty($_SESSION['member_id'])){
 
 ?>
 
-    <div class="col my-5">
-
-        <div class="container">
+        <div class="container my-5">
 
             <div class="row">
                 <div class="col-12">
-                    Cancel?
+                    <h3>Cancel?</h3>
                 </div>
             </div>
 
@@ -53,7 +51,7 @@ if(!empty($_SESSION['member_id'])){
                         <input type="hidden" name="mId" value="<?php echo $mId; ?>">
                         <input type="hidden" name="lessonPk" value="<?php echo $lessonData['lesson_pk'];?>">
                         <input type="hidden" name="endTime" value="<?php echo $lessonData['end_time'];?>">
-                        <input type="submit" name="cancel" value="Cancel" class="btn btn-primary">
+                        <input type="submit" name="cancel" value="Cancel" class="btn btn-danger">
                     </form>
 
                 </div>
@@ -62,10 +60,9 @@ if(!empty($_SESSION['member_id'])){
 
 
         </div>
-    </div>
-
 
 
 <?php
+    include_once 'sidebar2.php';
     include_once 'footer.php';
 ?>

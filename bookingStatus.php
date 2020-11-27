@@ -12,13 +12,11 @@
 
 ?>
 
-    <div class="col my-5">
-
-        <div class="container">
+        <div class="container my-5">
 
             <div class="row">
                 <div class="col-12">
-                    Your Current Booking Status
+                    <h4>Your Current Booking Status</h4>
 
                 </div>
             </div>
@@ -47,8 +45,8 @@
                                     ?>
                                     <tr>
                                         <td>
-                                            <a href="cancelLesson.php?lesson_pk=<?= $row['lesson_pk']?>" class="btn btn-primary">Cancel</a>
-                                            <a href="replaceLesson.php?lesson_pk=<?= $row['lesson_pk']?>" class="btn btn-primary">Replace</a>
+                                            <a href="cancelLesson.php?lesson_pk=<?= $row['lesson_pk']?>" class="btn btn-outline-danger btn-sm">Cancel</a>
+                                            <a href="replaceLesson.php?lesson_pk=<?= $row['lesson_pk']?>" class="btn btn-outline-primary btn-sm">Replace</a>
                                         </td>
                                         <td><?php echo $row['date'];?></td>
                                         <td><?php echo $row['start_time'];?></td>
@@ -73,13 +71,10 @@
                 </div>
             </div>
 
-
-
         </div>
-    </div>
-
 
 
 <?php
+    include_once 'sidebar2.php';
     include_once 'footer.php';
 ?>

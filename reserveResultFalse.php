@@ -4,9 +4,7 @@
 
 ?>
 
-    <div class="col my-5">
-
-        <div class="container">
+        <div class="container my-5">
 
             <div class="row">
                 <div class="col-12">
@@ -17,7 +15,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    You can't reserve this lesson.<br>
+                    <h3>You can't reserve this lesson.</h3><br>
                     <a href="lessonBookings.php">Back</a>
                 </div>
             </div>
@@ -27,10 +25,9 @@
 
 
         </div>
-    </div>
-
 
 
 <?php
+    include_once 'sidebar2.php';
     include_once 'footer.php';
 ?>

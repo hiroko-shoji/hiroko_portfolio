@@ -4,6 +4,7 @@
 
     if(!empty($_SESSION['member_id'])){
         $lessonPk = $_GET['lesson_pk'];
+        $uTicket = $_GET['useTicket'];
         $mId = $_SESSION['member_id'];
 
         $lessonData = $SchoolObj->get_one_lesson($lessonPk);
@@ -12,13 +13,11 @@
     }
 ?>
 
-    <div class="col my-5">
-
-        <div class="container">
+        <div class="container my-5">
 
             <div class="row">
                 <div class="col-12">
-                    Confirmation
+                    <h3>Confirmation</h3>
                 </div>
             </div>
 
@@ -48,6 +47,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <input type="hidden" name="uTicket" value="<?php echo $uTicket;?>">
                         <input type="hidden" name="mId" value="<?php echo $mId; ?>">
                         <input type="hidden" name="lessonPk" value="<?php echo $lessonData['lesson_pk'];?>">
                         <input type="hidden" name="endTime" value="<?php echo $lessonData['end_time'];?>">
@@ -60,10 +60,9 @@
 
 
         </div>
-    </div>
-
 
 
 <?php
+    include_once 'sidebar2.php';
     include_once 'footer.php';
 ?>

@@ -14,11 +14,11 @@
                 <form action="login_inc.php" method="POST">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Admin ID</label>
-                        <input type="text" class="form-control" required id="" name="memberId">
+                        <input type="text" class="form-control-sm" required id="" name="memberId">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" required name="password">
+                        <input type="password" class="form-control-sm" required name="password">
                     </div>
                     <button type="submit" name="admin_login" class="btn btn-info">LOGIN</button>
                 </form>
